@@ -37,3 +37,7 @@ products.insert sku: 'X3048509', price: 23.99, quantity: 3
 products.insert sku: 'Y3048509', price: 24.99, quantity: 10
 products.insert sku: 'L3048509', price: 29.99, quantity: 0
 
+
+customers = DB[:customers]
+customers.insert name: 'Riccardo Carlesso', email: 'riccardo.carlesso@gmail.com'
+customers.insert name: 'Andrei Bondarev Jr', email: 'andrei@sourcelabs.io'

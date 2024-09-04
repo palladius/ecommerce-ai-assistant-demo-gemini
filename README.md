@@ -25,9 +25,9 @@ ruby main.rb
 
 3. Paste it the following code:
 ```ruby
-llm = Langchain::LLM::OpenAI.new(
-  api_key: ENV["OPENAI_API_KEY"],
-  default_options: { chat_completion_model_name: "gpt-4o-mini" }
+llm = Langchain::LLM::GoogleGemini.new(
+  api_key: ENV["GOOGLE_GEMINI_API_KEY"],
+  default_options: { chat_completion_model_name: "gemini-1.5-flash" }
 )
 
 # INSTRUCTIONS 1

@@ -13,3 +13,6 @@ gem "sequel"
 gem "dotenv"
 gem "mail"
 gem 'langchainrb', git: "https://github.com/patterns-ai-core/langchainrb.git", branch: "main"
+
+# TODO move to a less strict library
+gem 'colorize'
