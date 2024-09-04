@@ -40,4 +40,4 @@ products.insert sku: 'L3048509', price: 29.99, quantity: 0
 
 customers = DB[:customers]
 customers.insert name: 'Riccardo Carlesso', email: 'riccardo.carlesso@gmail.com'
-customers.insert name: 'Andrei Bondarev Jr', email: 'andrei@sourcelabs.io'
+customers.insert name: 'Andrei Bondarev', email: 'andrei@sourcelabs.io'

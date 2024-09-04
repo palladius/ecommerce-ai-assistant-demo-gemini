@@ -21,8 +21,9 @@ require_relative "./tools/shipping_service"
 require_relative "./tools/order_management"
 require_relative "./tools/customer_management"
 require_relative "./tools/email_service"
-
+#  Carlessian monkeypatching to make it look nicer..
 require_relative "./lib/google_message"
+require_relative "./lib/assistant"
 
 require "irb"
 
