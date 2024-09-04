@@ -80,7 +80,7 @@ INSTRUCTIONS
 
 
 # Create the assistant
-assistant = Langchain::Assistant.new(
+$assistant = Langchain::Assistant.new(
   # Instructions for the assistant that will be passed to OpenAI as a "system" message
   instructions: new_order_instructions,
   llm: llm,
@@ -94,13 +94,18 @@ assistant = Langchain::Assistant.new(
   ]
 )
 
-assistant.add_message_and_run content: "riccardo.carlesso@gmail.com just purchased 5 t-shirts (Y3048509). His address is 667 Madison Avenue, New York, NY 10065", auto_tool_execution: true
+#assistant.add_message_and_run content: "riccardo.carlesso@gmail.com just purchased 5 t-shirts (Y3048509). His address is 667 Madison Avenue, New York, NY 10065", auto_tool_execution: true
+$assistant.msg "Andrei Bondarev (andrei@sourcelabs.io) just purchased 5 t-shirts (Y3048509). His address is 667 Madison Avenue, New York, NY 10065"
 
+$assistant.pretty_history
+
+$assistant.msg "Ok. Riccardo Carlesso (ricc@google.com) just purchased 7 coffee mugs (Z0394853). His address is 667 Madison Avenue, New York, NY 10065. Please confirm total price and how many are left in stock as its very popular today"
+
+$assistant.pretty_history
 
 # give vars to IRB
-$assistant = assistant
 require "irb"
 
-$assistant.thread.messages.each{|m| puts m.to_s}
+#$assistant.pretty_history # thread.messages.each{|m| puts m.to_s}
 
 IRB.start(__FILE__)
