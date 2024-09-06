@@ -24,6 +24,7 @@ require_relative "./tools/email_service"
 #  Carlessian monkeypatching to make it look nicer..
 require_relative "./lib/google_message"
 require_relative "./lib/assistant"
+require_relative "./lib/database"
 
 require "irb"
 
@@ -106,6 +107,7 @@ $assistant.pretty_history
 # give vars to IRB
 require "irb"
 
+$DB = Sequel.sqlite(ENV["DATABASE_NAME"])
 #$assistant.pretty_history # thread.messages.each{|m| puts m.to_s}
-
+puts("Feel free to interrogate the $DB (eg  $DB[:products].all), or the $assistant (eg $assistant.msg '..')")
 IRB.start(__FILE__)
