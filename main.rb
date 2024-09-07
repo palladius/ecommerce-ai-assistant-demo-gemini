@@ -22,5 +22,9 @@ require_relative "./tools/order_management"
 require_relative "./tools/customer_management"
 require_relative "./tools/email_service"
 
+require_relative "lib/assistant"
+require_relative "lib/database"
+require_relative "lib/google_message"
+
 require "irb"
 IRB.start(__FILE__)

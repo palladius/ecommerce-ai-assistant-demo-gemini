@@ -13,18 +13,32 @@ Original Video tutorial: https://www.loom.com/share/83aa4fd8dccb492aad4ca95da40e
 <img src="https://github.com/patterns-ai-core/ecommerce-ai-assistant-demo/assets/541665/e17032a5-336d-44e7-b070-3695e69003f6" height="400" />
 
 ### Installation
-1. `git clone`
+1. `git clone https://github.com/palladius/ecommerce-ai-assistant-demo-gemini/` (and `cd` there)
 2. `bundle install`
 3. `cp .env.example .env` and fill it out with your values.
 4. Run `sendmail` in a separate tab.
 
-### Running
-1. Run setup_db.rb to set up the database:
-```ruby
-ruby setup_db.rb
+### Running automatically
+
+1. Run `setup_db.rb` to set up the database, if needed:
+```bash
+make db
 ```
 
-2. Load Ruby REPL session with everything loaded:
+2A. [AUTO] Load Ruby REPL session and some sample initialization done for you:
+```ruby
+ruby test-e2e.rb
+```
+
+### Running manually
+
+1. Run `setup_db.rb` to set up the database, if needed:
+```bash
+make db
+```
+
+
+2. [MANUAL] Load Ruby REPL session with everything loaded:
 ```ruby
 ruby main.rb
 ```
@@ -122,4 +136,22 @@ B9384509: 100 - $30
 X3048509: 200 - $25
 A3045809: 10 - $35
 """, auto_tool_execution: true
+```
+
+## Sample invocation
+
+```
+0|🧑 [user] 💬 Andrei Bondarev (andrei@sourcelabs.io) just purchased 5 t-shirts (Y3048509). His address is 667 Madison Avenue, New York, NY 10065
+1|🤖 [model] 🛠️ [1/1] 🛠️  {"name"=>"customer_management__find_customer", "args"=>{"email"=>"andrei@sourcelabs.io"}}
+2|🔢 [func] 🛠️  customer_management__find_customer => {:id=>2, :name=>"Andrei Bondarev Jr", :email=>"andrei@sourcelabs.io"}
+3|🤖 [model] 🛠️ [1/1] 🛠️  {"name"=>"inventory_management__find_product", "args"=>{"sku"=>"Y3048509"}}
+4|🔢 [func] 🛠️  inventory_management__find_product => {:sku=>"Y3048509", :price=>24.99, :quantity=>0}
+5|🤖 [modl] 💬 We are currently out of stock for that t-shirt.  We can notify you when it is back in stock. Would you like to be added to the waitlist?
+6|🧑 [user] 💬 Ok. Riccardo Carlesso (ricc@google.com) just purchased 7 coffee mugs (Z0394853). His address is 667 Madison Avenue, New York, NY 10065. Please confirm total price and how many are left in stock as its very popular today
+7|🤖 [model] 🛠️ [1/1] 🛠️  {"name"=>"customer_management__find_customer", "args"=>{"email"=>"ricc@google.com"}}
+8|🔢 [func] 🛠️  customer_management__find_customer => {:id=>3, :name=>"Riccardo Carlesso", :email=>"ricc@google.com"}
+9|🤖 [model] 🛠️ [1/1] 🛠️  {"name"=>"inventory_management__find_product", "args"=>{"sku"=>"Z0394853"}}
+10|🔢 [func] 🛠️  inventory_management__find_product => {:sku=>"Z0394853", :price=>22.99, :quantity=>20}
+11|🤖 [modl] 💬 The total price for 7 coffee mugs is $160.93. We have 20 left in stock.
+Feel free to interrogate the $DB (eg  $DB[:products].all), or the $assistant (eg $assistant.msg '..')
 ```
