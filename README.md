@@ -1,5 +1,9 @@
 # E-commerce AI Assistant
 
+Self: https://github.com/palladius/ecommerce-ai-assistant-demo-gemini/
+
+Original from Andrei: https://github.com/patterns-ai-core/ecommerce-ai-assistant-demo/
+
 An e-commerce AI assistant built with [Langchain.rb](https://github.com/andreibondarev/langchainrb) and Gemini. This demo articulates the idea that business logic will now also live in prompts. A lot of modern software development is stringing services (classes and APIs) together. This demo illustrate how AI can assist in executing business logic and orchestrating calls to various services.
 
 Original repo by Andrei: https://github.com/patterns-ai-core/ecommerce-ai-assistant-demo
