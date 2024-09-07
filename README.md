@@ -145,7 +145,32 @@ A3045809: 10 - $35
 
 ## Sample invocation
 
-```
+```ruby
+$ ruby test-e2e.rb
+
+== DB DUMP ==
+1. Products:
+{:sku=>"A3045809", :price=>20.99, :quantity=>100}
+{:sku=>"B9384509", :price=>21.99, :quantity=>5}
+{:sku=>"Z0394853", :price=>22.99, :quantity=>20}
+{:sku=>"X3048509", :price=>23.99, :quantity=>3}
+{:sku=>"Y3048509", :price=>24.99, :quantity=>0}
+{:sku=>"L3048509", :price=>29.99, :quantity=>0}
+X. orders:
+X. order_items:
+X. products:
+{:sku=>"A3045809", :price=>20.99, :quantity=>100}
+{:sku=>"B9384509", :price=>21.99, :quantity=>5}
+{:sku=>"Z0394853", :price=>22.99, :quantity=>20}
+{:sku=>"X3048509", :price=>23.99, :quantity=>3}
+{:sku=>"Y3048509", :price=>24.99, :quantity=>0}
+{:sku=>"L3048509", :price=>29.99, :quantity=>0}
+X. customers:
+{:id=>1, :name=>"Riccardo Carlesso", :email=>"riccardo.carlesso@gmail.com"}
+{:id=>2, :name=>"Andrei Bondarev Jr", :email=>"andrei@sourcelabs.io"}
+{:id=>3, :name=>"Riccardo Carlesso", :email=>"ricc@google.com"}
+{:id=>4, :name=>"Roger Federer", :email=>"roger.federer@gmail.com"}
+
 0|🧑 [user] 💬 Andrei Bondarev (andrei@sourcelabs.io) just purchased 5 t-shirts (Y3048509). His address is 667 Madison Avenue, New York, NY 10065
 1|🤖 [model] 🛠️ [1/1] 🛠️  {"name"=>"customer_management__find_customer", "args"=>{"email"=>"andrei@sourcelabs.io"}}
 2|🔢 [func] 🛠️  customer_management__find_customer => {:id=>2, :name=>"Andrei Bondarev Jr", :email=>"andrei@sourcelabs.io"}
