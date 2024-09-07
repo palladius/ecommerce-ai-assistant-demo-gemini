@@ -32,8 +32,8 @@ ruby test-e2e.rb
 
 This will load automatically the first part of the sample code in the "Running Manually" part, and let you continue the conversation in a IRB session loaded with useful variables:
 
-* `$assistant`. Sample invokations: `$assistant.pretty_history` or `$assistant.msg 'Customer Jane Doe wants to buy 5 tshirts of SKU B9384509 please. Can she?'`
-* `$DB` with Sequel DB. Sample invokations: `$DB[:products].all` or `db_dump`
+* `$assistant` (**Langchain::Assistant**). Sample invocations: `$assistant.pretty_history` or `$assistant.msg 'Customer Jane Doe wants to buy 5 tshirts of SKU B9384509 please. Can she?'`
+* `$DB` with Sequel **DB**. Sample invocations: `$DB[:products].all` or `db_dump`
 
 ### Running manually
 
