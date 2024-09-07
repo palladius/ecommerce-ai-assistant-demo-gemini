@@ -25,10 +25,15 @@ Original Video tutorial: https://www.loom.com/share/83aa4fd8dccb492aad4ca95da40e
 make db
 ```
 
-2A. [AUTO] Load Ruby REPL session and some sample initialization done for you:
+2A. Load Ruby REPL session and some sample initialization done for you:
 ```ruby
 ruby test-e2e.rb
 ```
+
+This will load automatically the first part of the sample code in the "Running Manually" part, and let you continue the conversation in a IRB session loaded with useful variables:
+
+* `$assistant`. Sample invokations: `$assistant.pretty_history` or `$assistant.msg 'Customer Jane Doe wants to buy 5 tshirts of SKU B9384509 please. Can she?'`
+* `$DB` with Sequel DB. Sample invokations: `$DB[:products].all` or `db_dump`
 
 ### Running manually
 
@@ -38,12 +43,12 @@ make db
 ```
 
 
-2. [MANUAL] Load Ruby REPL session with everything loaded:
+1. Load Ruby REPL session with everything loaded:
 ```ruby
 ruby main.rb
 ```
 
-3. Paste it the following code:
+1. Paste it the following code:
 ```ruby
 llm = Langchain::LLM::GoogleGemini.new(
   api_key: ENV["GOOGLE_GEMINI_API_KEY"],
@@ -155,3 +160,7 @@ A3045809: 10 - $35
 11|🤖 [modl] 💬 The total price for 7 coffee mugs is $160.93. We have 20 left in stock.
 Feel free to interrogate the $DB (eg  $DB[:products].all), or the $assistant (eg $assistant.msg '..')
 ```
+
+### Known issues
+
+* Running the asistant with Gemini latest model (`gemini-1.5-pro`) yields best results but tends to get throttled if you call it multiple times in a second, and usually results in HTTP 500s after 3-4 calls. We suggest to use Gemini 1.5 Flash (`gemini-1.5-flash`) for this exercise.
