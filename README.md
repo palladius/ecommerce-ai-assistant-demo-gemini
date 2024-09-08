@@ -9,6 +9,16 @@ An e-commerce AI assistant built with [Langchain.rb](https://github.com/andreibo
 Original repo by Andrei: https://github.com/patterns-ai-core/ecommerce-ai-assistant-demo
 Original Video tutorial: https://www.loom.com/share/83aa4fd8dccb492aad4ca95da40ed0b2
 
+## Euruko Hackathon 2024
+
+If you're part of [Riccardo's Euruko Hackathon](https://2024.euruko.org/speakers/riccardo_carlesso), please click on [Hackathon Details](hackathon.md).
+
+<div align="right">
+    <a href="https://2024.euruko.org/" target="_blank"><img src="images/hero_image.png" alt="Euruko Logo" width="200"></a>
+</div>
+
+
+
 ### Diagram
 <img src="https://github.com/patterns-ai-core/ecommerce-ai-assistant-demo/assets/541665/e17032a5-336d-44e7-b070-3695e69003f6" height="400" />
 
