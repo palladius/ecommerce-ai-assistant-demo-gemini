@@ -28,7 +28,6 @@ require_relative "./lib/database"
 
 require "irb"
 
-
 require "bundler/setup"
 Bundler.require
 require "dotenv/load"
@@ -37,29 +36,18 @@ Mail.defaults do
   delivery_method :sendmail
 end
 
-Sequel::Model.db = Sequel.sqlite(ENV["DATABASE_NAME"])
 
-# Require all the models
-require_relative "./models/product"
-require_relative "./models/order"
-require_relative "./models/order_item"
-require_relative "./models/customer"
-
-# Require all the tools
-require_relative "./tools/inventory_management"
-require_relative "./tools/payment_gateway"
-require_relative "./tools/shipping_service"
-require_relative "./tools/order_management"
-require_relative "./tools/customer_management"
-require_relative "./tools/email_service"
-
+FEED_SAMPLE_INSTRUCTIONS = ENV.fetch('FEED_SAMPLE_INSTRUCTIONS', 'TruE').to_s.downcase == 'true'
 CHAT_COMPLETION_MODEL_NAME= ENV.fetch 'CHAT_COMPLETION_MODEL_NAME'
 llm = Langchain::LLM::GoogleGemini.new(
   api_key: ENV["GOOGLE_GEMINI_API_KEY"],
   default_options: { chat_completion_model_name: CHAT_COMPLETION_MODEL_NAME }
 )
-puts("Gemini model: #{CHAT_COMPLETION_MODEL_NAME}")
 
+puts("Gemini model: #{CHAT_COMPLETION_MODEL_NAME}")
+puts("FEED_SAMPLE_INSTRUCTIONS: #{FEED_SAMPLE_INSTRUCTIONS}")
+
+exit 42
 
 # INSTRUCTIONS 1
 new_order_instructions = <<~INSTRUCTIONS

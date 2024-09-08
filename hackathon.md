@@ -113,6 +113,13 @@ If only we had a rubyist who could fix this...
 functionality to do so, **and** use the `define_function` for Langchain to define the OpenAPI stub for Gemini to correctly
 decide what to do.
 
+Once done, re-run the code before with:
+```bash
+FEED_SAMPLE_INSTRUCTIONS=false ruby test-e2e.rb
+```
+
+(same as test code but it wont repeat the same sample sentences from before).
+
 ## Excercise 2: Try with Gemma2
 
 Are you a fan of Open Models? Are you familiar with [Ollama](https://ollama.com/)?
@@ -122,10 +129,41 @@ Want to run the same exercise with [**Gemma**](https://ollama.com/library/gemma2
 Then:
 1. Download and install `ollama` if you don't have it: https://ollama.com/download
 2. Download gemma model: `ollama run gemma2:2b`. Note: the default model is 9B parameters (5.4GB on my linux machine).
-   If you have limited disk or internet, you can download the smaller now. Of course you can download any other models
-   you want :)
+   If you have limited disk or internet, you can download the smaller one for the purpose of the excerise. Of course you can download any other models you want :)
+```bash
+$ ollama list
+gemma2:2b               8ccf136fdd52    1.6 GB  7 seconds ago
+gemma2:latest           ff02c3702f32    5.4 GB  3 weeks ago
+codegemma:latest        0c96700aaada    5.0 GB  4 months ago
+```
+3. Let's test that Ruby sees Ollama (from https://github.com/gbaptista/ollama-ai):
+```ruby
+require 'ollama-ai'
 
+client = Ollama.new(
+  credentials: { address: 'http://localhost:11434' },
+  options: { server_sent_events: true }
+)
 
+result = client.generate(
+  { model: 'llama2',
+    prompt: 'Hi!' }
+)
+```
+4.. Now lets tweak the llm constructor to use Gemma instead! See how pwoerful LangchainRB is!
+
+```ruby
+irb(main):039> llm = Langchain::LLM::Ollama.new(
+    url: 'http://localhost:11434',
+    default_options: {
+        chat_completion_model_name: 'gemma2',
+        completion_model_name:  'gemma2',
+        embeddings_model_name:  'gemma2', # might not work
+    })
+irb(main):040> response = llm.complete prompt: 'How are you?'
+irb(main):041> response.raw_response['response']
+=> "As an AI, I don't have feelings or experiences like humans do. However, I'm here and ready to assist you with any questions or tasks you may have!\n\nHow can I help you today?"
+```
 ## Clean up
 
 * To restore the DB, you can simply `[rm|mv] nerds-and-threads.sqlite3`

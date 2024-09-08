@@ -16,3 +16,7 @@ gem 'langchainrb', git: "https://github.com/patterns-ai-core/langchainrb.git", b
 
 # TODO move to a less strict library
 gem 'colorize'
+
+
+gem 'ollama-ai'
+gem 'gemini-ai' # , '~> 4.2.0'

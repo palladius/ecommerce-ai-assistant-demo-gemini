@@ -11,6 +11,7 @@ class CustomerManagement
   define_function :find_customer, description: "Customer Management Service: Look up a customer by email" do
     property :email, type: "string", description: "Email", required: true
   end
+  # Added by Riccardo
   define_function :find_customer_by_name, description: "Customer Management Service: Look up a customer by name (meaning givenname + surname)" do
     property :name, type: "string", description: "Full Name", required: true
   end
