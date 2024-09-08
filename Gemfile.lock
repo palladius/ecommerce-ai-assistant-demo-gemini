@@ -106,10 +106,6 @@ GEM
       pry (>= 0.13, < 0.15)
     public_suffix (6.0.1)
     rainbow (3.1.1)
-    ruby-openai (7.1.0)
-      event_stream_parser (>= 0.3.0, < 2.0.0)
-      faraday (>= 1)
-      faraday-multipart (>= 1)
     sequel (5.82.0)
       bigdecimal
     signet (0.19.0)
@@ -155,7 +151,6 @@ DEPENDENCIES
   mail
   ollama-ai
   pry-byebug
-  ruby-openai
   sequel
   sqlite3
 

@@ -45,7 +45,7 @@ require_relative "lib/google_message"
 
 $DB = Sequel.sqlite(ENV["DATABASE_NAME"])
 # $assistant = Langchain::Assistant.new(
-#   # Instructions for the assistant that will be passed to OpenAI as a "system" message
+#   # Instructions for the assistant that will be passed to Gemini as a "system" message
 #   instructions: new_order_instructions,
 #   llm: llm,
 #   tools: [

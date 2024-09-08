@@ -1,3 +1,5 @@
+# Euruko Hackathon: Build an AI agent in 15 min Langchain.rb
+
 Welcome!
 
 If you're part of [Riccardo's Euruko Hackathon](https://2024.euruko.org/speakers/riccardo_carlesso), please click on [Hackathon Details](hackathon.md).
@@ -164,6 +166,48 @@ irb(main):040> response = llm.complete prompt: 'How are you?'
 irb(main):041> response.raw_response['response']
 => "As an AI, I don't have feelings or experiences like humans do. However, I'm here and ready to assist you with any questions or tasks you may have!\n\nHow can I help you today?"
 ```
+
+## Connect your assistant to some external API
+
+This can be achieved in 2 different ways:
+
+* Either you have your own API which you know, then you can just build a tool by yourself which connects to it (it's pretty simple, once you study the existing code under https://github.com/patterns-ai-core/langchainrb/tree/main/lib/langchain/tool ),
+* or you use one of the existing ones under https://github.com/patterns-ai-core/langchainrb/tree/main/lib/langchain/tool
+
+Either way, it's a good use of your time to start studying the code in there. Most APIs require you to get a free API KEY online:
+
+* [Weather](https://github.com/patterns-ai-core/langchainrb/blob/main/lib/langchain/tool/weather.rb): Get key at https://openweathermap.org/api
+* [NewsRetriever](https://github.com/patterns-ai-core/langchainrb/blob/main/lib/langchain/tool/news_retriever.rb): get key at https://newsapi.org/ (pretty fast)
+* [Google Search](https://github.com/patterns-ai-core/langchainrb/blob/main/lib/langchain/tool/google_search.rb):
+  depends on `google_search_results` gem -> https://serpapi.com/
+* [Tavily](https://tavily.com/#pricing) -> https://tavily.com/#pricing
+
+Steps:
+
+1. Build your own `Langchain::Tool` class or use an existing one. Have a working API KEY ready (try `curl`ing with it).
+2. Add your Tool to the assistant:
+
+```ruby
+$assistant = Langchain::Assistant.new(
+  # Instructions for the assistant that will be passed to Gemini as a "system" message
+  instructions: new_order_instructions,
+  llm: llm,
+  tools: [
+    InventoryManagement.new,
+    ShippingService.new,
+    PaymentGateway.new,
+    OrderManagement.new,
+    CustomerManagement.new,
+    EmailService.new,
+    # Add here with proper constructor values
+    YourNewAwesomeTool.new(api_key: YOUR_API_KEY),
+  ]
+)
+```
+3. Start playing around with the $assistant, asking questions and seeing if it actually calls the functions you've created or linked.
+
+Have fun!
+
 ## Clean up
 
 * To restore the DB, you can simply `[rm|mv] nerds-and-threads.sqlite3`

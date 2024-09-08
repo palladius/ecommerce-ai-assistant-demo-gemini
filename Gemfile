@@ -4,7 +4,6 @@ ruby "3.3.4"
 
 source "https://rubygems.org"
 
-gem "ruby-openai"
 gem "faraday"
 gem "anthropic"
 gem "pry-byebug"
@@ -17,6 +16,7 @@ gem 'langchainrb', git: "https://github.com/patterns-ai-core/langchainrb.git", b
 # TODO move to a less strict library
 gem 'colorize'
 
-
+# Possible LLMs: add yours if missing
 gem 'ollama-ai'
 gem 'gemini-ai' # , '~> 4.2.0'
+#gem "ruby-openai"
