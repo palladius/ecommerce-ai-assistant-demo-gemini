@@ -167,3 +167,14 @@ irb(main):041> response.raw_response['response']
 ## Clean up
 
 * To restore the DB, you can simply `[rm|mv] nerds-and-threads.sqlite3`
+* To remove Gemma and other models from Ollama, `ollama rm gemma2` (or model name).
+
+
+# URLography
+
+* LangchainRB: https://github.com/patterns-ai-core/langchainrb/
+   * [Ollama LLM](https://github.com/patterns-ai-core/langchainrb/blob/main/lib/langchain/llm/ollama.rb)
+   * [Google Gemini](https://github.com/patterns-ai-core/langchainrb/blob/main/lib/langchain/llm/google_gemini.rb)
+   * [Google Vertex AI](https://github.com/patterns-ai-core/langchainrb/blob/main/lib/langchain/llm/google_vertex_ai.rb)
+ * Ollama gem: https://github.com/gbaptista/ollama-ai
+ * Gemini gem: https://github.com/gbaptista/gemini-ai
