@@ -138,7 +138,7 @@ gemma2:2b               8ccf136fdd52    1.6 GB  7 seconds ago
 gemma2:latest           ff02c3702f32    5.4 GB  3 weeks ago
 codegemma:latest        0c96700aaada    5.0 GB  4 months ago
 ```
-3. Let's test that Ruby sees Ollama (from https://github.com/gbaptista/ollama-ai):
+1. [Optional] Let's test that Ruby sees Ollama via [ollama-ai](https://github.com/gbaptista/ollama-ai) gem:
 ```ruby
 require 'ollama-ai'
 
@@ -148,26 +148,25 @@ client = Ollama.new(
 )
 
 result = client.generate(
-  { model: 'llama2',
+  { model: 'gemma2:2b', # or 'gemma2', or 'gemma2:2b'
     prompt: 'Hi!' }
 )
 ```
-4.. Now lets tweak the llm constructor to use Gemma instead! See how pwoerful LangchainRB is!
+4.. Now lets tweak the `llm` constructor to use Gemma instead! See how pwoerful `LangchainRB` is!
 
 ```ruby
-irb(main):039> llm = Langchain::LLM::Ollama.new(
-    url: 'http://localhost:11434',
+my_favourite_ollama_model = 'gemma2:2b' # or :llama3, or :gemma2
+llm = Langchain::LLM::Ollama.new(
     default_options: {
-        chat_completion_model_name: 'gemma2',
-        completion_model_name:  'gemma2',
-        embeddings_model_name:  'gemma2', # might not work
+        chat_completion_model_name: my_favourite_ollama_model,
+        completion_model_name:  my_favourite_ollama_model,
     })
-irb(main):040> response = llm.complete prompt: 'How are you?'
-irb(main):041> response.raw_response['response']
+response = llm.complete prompt: 'How are you?'
+response.raw_response['response']
 => "As an AI, I don't have feelings or experiences like humans do. However, I'm here and ready to assist you with any questions or tasks you may have!\n\nHow can I help you today?"
 ```
 
-## Connect your assistant to some external API
+## Connect your assistant to some other API
 
 This can be achieved in 2 different ways:
 
@@ -207,6 +206,31 @@ $assistant = Langchain::Assistant.new(
 3. Start playing around with the $assistant, asking questions and seeing if it actually calls the functions you've created or linked.
 
 Have fun!
+
+### Tip
+If you don't know where to start from, you might consider the DB Tool (`Langchain::Tool::Database`), which comes for free
+within LangchainRB. Then you can ask very interesting questions regarding the DB itself:
+
+```ruby
+irb(main):011> db_dump
+X. products:
+{:sku=>"A3045809", :price=>20.99, :quantity=>100}
+{:sku=>"B9384509", :price=>21.99, :quantity=>5}
+{:sku=>"Z0394853", :price=>22.99, :quantity=>13}
+{:sku=>"X3048509", :price=>23.99, :quantity=>3}
+{:sku=>"Y3048509", :price=>24.99, :quantity=>0}
+{:sku=>"L3048509", :price=>29.99, :quantity=>0}
+irb(main):012> $assistant.msg 'What is the SKU of the product with highest availablity?'
+47|🤖 [modl] 💬 The SKU of the product with the highest availability is A3045809.
+```
+
+You can also try:
+
+* "How many OrderItems are there? And whats the sum of all quantities for these items?" (this might fail)
+* "How many OrderItems are there? And whats the sum of all quantities for these items? Table name is order_items" (this worked for me)
+* *Which tables are in the DB?*
+* *What is the last Customer from table Customers?*
+* 'What is the SKU of the product with highest availability?'
 
 ## Clean up
 
