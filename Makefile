@@ -1,4 +1,4 @@
-
+# DBNAME: nerds-and-threads.sqlite3
 
 # DB
 db: nerds-and-threads.sqlite3
@@ -20,3 +20,8 @@ run-test-e2e: db
 	ruby test-e2e.rb
 
 test-e2e: run-test-e2e
+
+test-without-feeding-instructions: db
+	FEED_SAMPLE_INSTRUCTIONS=false ruby test-e2e.rb
+clean:
+	rm nerds-and-threads.sqlite3

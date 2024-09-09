@@ -44,10 +44,8 @@ llm = Langchain::LLM::GoogleGemini.new(
   default_options: { chat_completion_model_name: CHAT_COMPLETION_MODEL_NAME }
 )
 
-puts("Gemini model: #{CHAT_COMPLETION_MODEL_NAME}")
-puts("FEED_SAMPLE_INSTRUCTIONS: #{FEED_SAMPLE_INSTRUCTIONS}")
-
-exit 42
+puts("♊️ Gemini model: #{CHAT_COMPLETION_MODEL_NAME}")
+puts("📓 FEED_SAMPLE_INSTRUCTIONS: #{FEED_SAMPLE_INSTRUCTIONS}")
 
 # INSTRUCTIONS 1
 new_order_instructions = <<~INSTRUCTIONS
@@ -83,19 +81,25 @@ $assistant = Langchain::Assistant.new(
   ]
 )
 
-#assistant.add_message_and_run content: "riccardo.carlesso@gmail.com just purchased 5 t-shirts (Y3048509). His address is 667 Madison Avenue, New York, NY 10065", auto_tool_execution: true
-$assistant.msg "Andrei Bondarev (andrei@sourcelabs.io) just purchased 5 t-shirts (Y3048509). His address is 667 Madison Avenue, New York, NY 10065"
+if FEED_SAMPLE_INSTRUCTIONS
+  puts("📓 Feeding FEED_SAMPLE_INSTRUCTIONS. To avoid, export FEED_SAMPLE_INSTRUCTIONS=false")
+  #assistant.add_message_and_run content: "riccardo.carlesso@gmail.com just purchased 5 t-shirts (Y3048509). His address is 667 Madison Avenue, New York, NY 10065", auto_tool_execution: true
+  $assistant.msg "Andrei Bondarev (andrei@sourcelabs.io) just purchased 5 t-shirts (Y3048509). His address is 667 Madison Avenue, New York, NY 10065"
 
-$assistant.pretty_history
+  $assistant.pretty_history
 
-$assistant.msg "Ok. Riccardo Carlesso (ricc@google.com) just purchased 7 coffee mugs (Z0394853). His address is 667 Madison Avenue, New York, NY 10065. Please confirm total price and how many are left in stock as its very popular today"
+#  $assistant.msg "Ok. Riccardo Carlesso (ricc@google.com) just purchased 7 coffee mugs (Z0394853). His address is 667 Madison Avenue, New York, NY 10065. Please confirm total price and how many are left in stock as its very popular today"
+  $assistant.msg "Ok. Riccardo Carlesso (ricc@google.com) just purchased 7 coffee mugs (Z0394853). His address is 667 Madison Avenue, New York, NY 10065. Please confirm total price and how many are left in stock as its very popular today"
+  #$assistant.msg "Ok. Riccardo Carlesso (ricc@google.com) just purchased 7 coffee mugs (Z0394853). His address is Brandschenkestrasse 110, 8002 Zurich, Switzerland. Please confirm total price and how many are left in stock as its very popular today"
 
-$assistant.pretty_history
+  $assistant.pretty_history
+else
+  puts("📓 NOT Feeding FEED_SAMPLE_INSTRUCTIONS. To enable, export FEED_SAMPLE_INSTRUCTIONS=true")
+end
 
 # give vars to IRB
 require "irb"
 
 $DB = Sequel.sqlite(ENV["DATABASE_NAME"])
-#$assistant.pretty_history # thread.messages.each{|m| puts m.to_s}
-puts("Feel free to interrogate the $DB (eg  $DB[:products].all), or the $assistant (eg $assistant.msg '..')")
+puts("Feel free to interrogate the $DB (eg, '$DB[:products].all' or 'db_dump'), or the $assistant (eg '$assistant.msg('..')')")
 IRB.start(__FILE__)

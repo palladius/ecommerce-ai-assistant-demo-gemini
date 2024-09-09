@@ -5,7 +5,7 @@ class OrderManagement
 
   define_function :create_order, description: "Order Management Service: Create a new order" do
     property :customer_id, type: "number", description: "Customer ID", required: true
-    property :order_items, type: "array", description: "List of order items that each contain 'sku' and 'quantity' properties", required: true do
+    property :order_items, type: "array", description: "List of order items that each contain a 'sku' and 'quantity' properties", required: true do
       property :items, type: "object", description: "Order item" do
         property :product_sku, type: "string", description: "Product SKU", required: true
         property :quantity, type: "number", description: "Quantity of the product", required: true
@@ -34,7 +34,13 @@ class OrderManagement
     return "Order not found" if order.nil?
 
     order_items.each do |item|
-      OrderItem.create(order_id: order.id, product_sku: item[:product_sku], quantity: item[:quantity])
+      #puts("[ 📦 ] Ricc Debug. ITEM=#{item}")
+      #ret = OrderItem.create(order_id: order.id, product_sku: item[:product_sku], quantity: item[:quantity])
+      # bug: https://github.com/patterns-ai-core/ecommerce-ai-assistant-demo/issues/5
+      either_product_sku = item.fetch(:product_sku, item.fetch('product_sku'))
+      either_quantity = item.fetch(:quantity, item.fetch('quantity'))
+      ret = OrderItem.create(order_id: order.id, product_sku: either_product_sku, quantity: either_quantity)
+      #puts("[ 📦 ] Ricc Debug. OrderItem.create() => #{ret.inspect}")
     end
 
     { success: true, order_id: order.id }
