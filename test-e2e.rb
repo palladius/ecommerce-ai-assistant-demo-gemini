@@ -77,7 +77,9 @@ $assistant = Langchain::Assistant.new(
     PaymentGateway.new,
     OrderManagement.new,
     CustomerManagement.new,
-    EmailService.new
+    EmailService.new #,
+    # "Chat with your DB cabalities"
+    # Langchain::Tool::Database.new(connection_string: "sqlite://#{ENV["DATABASE_NAME"]}")
   ]
 )
 
