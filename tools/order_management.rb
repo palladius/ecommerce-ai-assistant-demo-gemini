@@ -37,6 +37,8 @@ class OrderManagement
       #puts("[ 📦 ] Ricc Debug. ITEM=#{item}")
       #ret = OrderItem.create(order_id: order.id, product_sku: item[:product_sku], quantity: item[:quantity])
       # bug: https://github.com/patterns-ai-core/ecommerce-ai-assistant-demo/issues/5
+      # Rails solves this: https://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html
+      # h = ActiveSupport::HashWithIndifferentAccess.new(test: 'test')
       either_product_sku = item.fetch(:product_sku, item.fetch('product_sku'))
       either_quantity = item.fetch(:quantity, item.fetch('quantity'))
       ret = OrderItem.create(order_id: order.id, product_sku: either_product_sku, quantity: either_quantity)
