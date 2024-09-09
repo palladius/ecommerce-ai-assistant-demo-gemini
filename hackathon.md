@@ -109,7 +109,7 @@ X. customers:
 
 As you can see, a lot of things have happened but sure the `Customer.find(4)` is still there!
 
-If only we had a rubyist who could fix this...
+If only we had a rubyist who could fix this... 😂
 
 **Tip**: Find code in `tools/customer_management.rb` and add a `delete_customer`. Note: you need to both add the code
 functionality to do so, **and** use the `define_function` for Langchain to define the OpenAPI stub for Gemini to correctly
@@ -166,7 +166,7 @@ response.raw_response['response']
 => "As an AI, I don't have feelings or experiences like humans do. However, I'm here and ready to assist you with any questions or tasks you may have!\n\nHow can I help you today?"
 ```
 
-## Connect your assistant to some other API
+## Excercise 3: Connect your assistant to some other API
 
 This can be achieved in 2 different ways:
 
@@ -207,11 +207,15 @@ $assistant = Langchain::Assistant.new(
 
 Have fun!
 
-### Tip
+### Tip for exercise 3
+
 If you don't know where to start from, you might consider the DB Tool (`Langchain::Tool::Database`), which comes for free
 within LangchainRB. Then you can ask very interesting questions regarding the DB itself:
 
 ```ruby
+irb(main):012> $assistant.msg 'What is the SKU of the product with highest availablity?'
+47|🤖 [modl] 💬 The SKU of the product with the highest availability is A3045809.
+# Is it true?!?
 irb(main):011> db_dump
 X. products:
 {:sku=>"A3045809", :price=>20.99, :quantity=>100}
@@ -220,19 +224,17 @@ X. products:
 {:sku=>"X3048509", :price=>23.99, :quantity=>3}
 {:sku=>"Y3048509", :price=>24.99, :quantity=>0}
 {:sku=>"L3048509", :price=>29.99, :quantity=>0}
-irb(main):012> $assistant.msg 'What is the SKU of the product with highest availablity?'
-47|🤖 [modl] 💬 The SKU of the product with the highest availability is A3045809.
 ```
 
 You can also try:
 
-* "How many OrderItems are there? And whats the sum of all quantities for these items?" (this might fail)
-* "How many OrderItems are there? And whats the sum of all quantities for these items? Table name is order_items" (this worked for me)
+* "*How many OrderItems are there? And whats the sum of all quantities for these items?*" (this might fail)
+* "*How many OrderItems are there? And whats the sum of all quantities for these items? Table name is order_items*" (this worked for me)
 * *Which tables are in the DB?*
 * *What is the last Customer from table Customers?*
-* 'What is the SKU of the product with highest availability?'
+* *What is the SKU of the product with highest availability?*
 
-## Clean up
+# Clean up
 
 * To restore the DB, you can simply `[rm|mv] nerds-and-threads.sqlite3`
 * To remove Gemma and other models from Ollama, `ollama rm gemma2` (or model name).
