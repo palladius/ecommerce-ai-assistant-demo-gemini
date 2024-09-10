@@ -16,12 +16,15 @@ First, let's make sure this works for you.
 1. `cd ecommerce-ai-assistant-demo-gemini`
 1. `bundle install`
 1. `cp .env.example .env` and fill it out with your values.
-1. Run `setup_db.rb` to set up the database, if needed: `make db`
-1. run `make test-e2e`
+1. Run `make db` to set up the database (it will run `setup_db.rb`  if needed).
+1. run `make test-e2e`. This will load the libraries and run a few commands for the pleasure of your eyes. At the end,
+   it will give you a IRB to continue with your questions, with two global vars you really need: `$assistant` and `$DB`.
+   You can toggle out the initial commands with `export FEED_SAMPLE_INSTRUCTIONS=false`.
+   We're champions of lazyness here.
 
 Now try to add some interesting questions like:
 
-```
+```ruby
 # Use these functions:
 # * `db_dump`: Shows you the DB
 # * `$assistant.msg`:  Sends message to $assistant and executes Custom Functions along the way.
