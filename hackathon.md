@@ -205,7 +205,8 @@ Either way, it's a good use of your time to start studying the code in there. Mo
 Steps:
 
 1. Build your own `Langchain::Tool` class or use an existing one. Have a working API KEY ready (try `curl`ing with it).
-2. Add your Tool to the assistant:
+2. `cp test-e2e.rb exercise3.rb`. Invoke with `FEED_SAMPLE_INSTRUCTIONS=false ruby exercise3.rb`
+3. Add your Tool to the assistant:
 
 ```ruby
 $assistant = Langchain::Assistant.new(
@@ -231,21 +232,83 @@ Have fun!
 ### Tips for exercise 3
 
 If you don't know where to start from, you might consider the DB Tool (`Langchain::Tool::Database`), which comes for
-free within LangchainRB. Then you can ask very interesting questions regarding the DB itself:
+free within LangchainRB ([code](https://github.com/patterns-ai-core/langchainrb/blob/main/lib/langchain/tool/database.rb)).
+Then you can ask very interesting questions regarding the DB itself.
+
+Firs you need to warm up: have gemini load into chat histroy info about the DB. You could smartly change the prompt to
+do it for you ("Before asking yourself DB questions, start by list_tables() and then describe_tables() on them all)
 
 ```ruby
-irb(main):012> $assistant.msg 'What is the SKU of the product with highest availablity?'
-47|🤖 [modl] 💬 The SKU of the product with the highest availability is A3045809.
-# Is it true?!?
-irb(main):011> db_dump
-X. products:
-{:sku=>"A3045809", :price=>20.99, :quantity=>100}
-{:sku=>"B9384509", :price=>21.99, :quantity=>5}
-{:sku=>"Z0394853", :price=>22.99, :quantity=>13}
-{:sku=>"X3048509", :price=>23.99, :quantity=>3}
-{:sku=>"Y3048509", :price=>24.99, :quantity=>0}
-{:sku=>"L3048509", :price=>29.99, :quantity=>0}
+# 1. warm up:
+$assistant.msg 'Can you check in the DB what tables dfo you have?'
+[..]
+4|🧑 [user] 💬 Can you check in the DB what tables dfo you have?
+5|🤖 [model] 🛠️ [1/1] 🛠️  {"name"=>"langchain_tool_database__list_tables", "args"=>{}}
+6|🔢 [func] 🛠️  langchain_tool_database__list_tables => [:products, :orders, :order_items, :customers]
+7|🤖 [modl] 💬 I have the following tables in my database: `products`, `orders`, `order_items`, and `customers`.
+
+# 2. Lets double click on Orders. Note the typo - still works!
+$assistant.msg 'Can you desrcibe each table and provide schema for Orders?'
+10|🧑 [user] 💬 Can you desrcibe each table and provide schema for Orders?
+11|🤖 [model] 🛠️ [1/1] 🛠️  {"name"=>"langchain_tool_database__describe_tables", "args"=>{"tables"=>["orders"]}}
+12|🔢 [func] 🛠️  langchain_tool_database__describe_tables => CREATE TABLE orders(
+id integer PRIMARY KEY,
+customer_id integer,
+created_at datetime);
+13|🤖 [modl] 💬 The `orders` table has the following schema:
+# yaml
+orders:
+  - id:
+      type: integer
+      primary_key: true
+  - customer_id:
+      type: integer
+  - created_at:
+      type: datetime
+# wow!
+# Now something useful:
+
+$assistant.msg 'what is the Product with highest price?'
+
+14|🧑 [user] 💬 what is the Product with highest price?
+15|🤖 [model] 🛠️ [1/1] 🛠️  {"name"=>"langchain_tool_database__execute", "args"=>{"input"=>"SELECT * FROM products ORDER BY price DESC LIMIT 1"}}
+16|🔢 [func] 🛠️  langchain_tool_database__execute => [{:sku=>"L3048509", :price=>29.99, :quantity=>0}]
+17|🤖 [modl] 💬 The product with the highest price is the one with SKU "L3048509" and it costs $29.99.
+
+# dont believe it?
+db_dump
+# =>
+#4. $DB[:products].all
+#{:sku=>"A3045809", :price=>20.99, :quantity=>100}
+#{:sku=>"B9384509", :price=>21.99, :quantity=>5}
+#{:sku=>"Z0394853", :price=>22.99, :quantity=>20}
+#{:sku=>"X3048509", :price=>23.99, :quantity=>3}
+#{:sku=>"Y3048509", :price=>24.99, :quantity=>0}
+#{:sku=>"L3048509", :price=>29.99, :quantity=>0}
+
+# Now something hard for me to code myself:
 ```
+
+Look at this juicy response - would you have done it in 1 sec?!?
+
+```ruby
+$assistant.msg 'Please JOIN orders with order_items and customers to provide a list of customer names, order id, SKU, quantity and date'
+[..]
+18|🧑 [user] 💬 Please JOIN orders with order_items and customers to provide a list of customer names, order id, SKU, quantity and date
+19|🤖 [model] 🛠️ [1/1] 🛠️  {"name"=>"langchain_tool_database__execute", "args"=>{"input"=>"SELECT c.name, o.id, oi.product_sku, oi.quantity, o.created_at FROM orders o JOIN order_items oi ON o.id = oi.order_id JOIN customers c ON o.customer_id = c.id"}}
+20|🔢 [func] 🛠️  langchain_tool_database__execute => [{:name=>"Andrei Bondarev", :id=>1, :product_sku=>"Y3048509", :quantity=>5, :created_at=>2024-09-10 12:14:23.734103 +0200}, {:name=>"Jane Doe", :id=>2, :product_sku=>"X3048509", :quantity=>3, :created_at=>2024-09-10 12:14:54.795901 +0200}, {:name=>"Andrei Bondarev", :id=>3, :product_sku=>"Y3048509", :quantity=>5, :created_at=>2024-09-10 12:24:44.694869 +0200}]
+21|🤖 [model] 🛠️ [1/1] 🛠️  {"name"=>"langchain_tool_database__execute", "args"=>{"input"=>"SELECT c.name, o.id, oi.product_sku, oi.quantity, o.created_at FROM orders o JOIN order_items oi ON o.id = oi.order_id JOIN customers c ON o.customer_id = c.id"}}
+22|🔢 [func] 🛠️  langchain_tool_database__execute => [{:name=>"Andrei Bondarev", :id=>1, :product_sku=>"Y3048509", :quantity=>5, :created_at=>2024-09-10 12:14:23.734103 +0200}, {:name=>"Jane Doe", :id=>2, :product_sku=>"X3048509", :quantity=>3, :created_at=>2024-09-10 12:14:54.795901 +0200}, {:name=>"Andrei Bondarev", :id=>3, :product_sku=>"Y3048509", :quantity=>5, :created_at=>2024-09-10 12:24:44.694869 +0200}]
+23|🤖 [modl] 💬 Here's the information you requested:
+
+| Customer Name | Order ID | SKU | Quantity | Date |
+|---|---|---|---|---|
+| Andrei Bondarev | 1 | Y3048509 | 5 | 2024-09-10 12:14:23.734103 +0200 |
+| Jane Doe        | 2 | X3048509 | 3 | 2024-09-10 12:14:54.795901 +0200 |
+| Andrei Bondarev | 3 | Y3048509 | 5 | 2024-09-10 12:24:44.694869 +0200 |
+```
+I wouldn't have come up with ```"SELECT c.name, o.id, oi.product_sku, oi.quantity, o.created_at FROM orders o JOIN order_items oi ON o.id = oi.order_id JOIN customers c ON o.customer_id = c.id"```
+in less than a second :)
 
 You can also try:
 
