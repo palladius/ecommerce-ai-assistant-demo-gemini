@@ -90,9 +90,8 @@ if FEED_SAMPLE_INSTRUCTIONS
 
   $assistant.pretty_history
 
-#  $assistant.msg "Ok. Riccardo Carlesso (ricc@google.com) just purchased 7 coffee mugs (Z0394853). His address is 667 Madison Avenue, New York, NY 10065. Please confirm total price and how many are left in stock as its very popular today"
-  $assistant.msg "Ok. Riccardo Carlesso (ricc@google.com) just purchased 7 coffee mugs (Z0394853). His address is 667 Madison Avenue, New York, NY 10065. Please confirm total price and how many are left in stock as its very popular today"
-  #$assistant.msg "Ok. Riccardo Carlesso (ricc@google.com) just purchased 7 coffee mugs (Z0394853). His address is Brandschenkestrasse 110, 8002 Zurich, Switzerland. Please confirm total price and how many are left in stock as its very popular today"
+  #$assistant.msg "Ok. Riccardo Carlesso (ricc@google.com) just purchased 7 coffee mugs (Z0394853). His address is 667 Madison Avenue, New York, NY 10065. Please confirm total price and how many are left in stock as its very popular today"
+  $assistant.msg "Ok. Riccardo Carlesso (ricc@google.com) just purchased 7 coffee mugs (Z0394853). His address is Brandschenkestrasse 110, 8002 Zurich, Switzerland. Please confirm total price and how many are left in stock as its very popular today"
 
   $assistant.pretty_history
 else
