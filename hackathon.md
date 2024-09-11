@@ -1,13 +1,14 @@
 # Euruko Hackathon: Build an AI agent in 15 min Langchain.rb
 
-Welcome!
+Welcome to the **Hackathon**!
 
-If you're part of [Riccardo's Euruko Hackathon](https://2024.euruko.org/speakers/riccardo_carlesso), please click on [Hackathon Details](hackathon.md).
 <div align="right">
     <a href="https://2024.euruko.org/" target="_blank"><img src="images/hero_image.png" alt="Euruko Logo" width="200"></a>
 </div>
 
 ### 11 Sep Note
+
+**WARNING**: this was edit the day of the event due to a last-minute issue with wifi.
 
 While all scripts here have been extensively tested at home, thjey seem to fail with current WiFi setup at Euruko.
 
