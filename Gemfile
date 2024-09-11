@@ -12,6 +12,9 @@ gem "sequel"
 gem "dotenv"
 gem "mail"
 gem 'langchainrb', git: "https://github.com/patterns-ai-core/langchainrb.git", branch: "main"
+#gem 'langchainrb', '0.15.5'
+#gem 'langchainrb', '0.15.4'
+gem 'googleauth'
 
 # TODO move to a less strict library
 gem 'colorize'

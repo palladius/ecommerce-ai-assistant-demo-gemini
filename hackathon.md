@@ -7,6 +7,20 @@ If you're part of [Riccardo's Euruko Hackathon](https://2024.euruko.org/speakers
     <a href="https://2024.euruko.org/" target="_blank"><img src="images/hero_image.png" alt="Euruko Logo" width="200"></a>
 </div>
 
+### 11 Sep Note
+
+While all scripts here have been extensively tested at home, thjey seem to fail with current WiFi setup at Euruko.
+
+Which is why I started coding a Vertex AI alternative which seems to work: 
+
+`make test-e2e-vertexai.rb`
+
+When you run it, it will likely fail, and should work if you comment out that error line:
+
+* https://github.com/patterns-ai-core/langchainrb/pull/772
+
+I know it's monkeypatching, but thats as goos as it gets 2h before the event :) 
+
 ## Hackathon steps
 
 First, let's make sure this works for you.

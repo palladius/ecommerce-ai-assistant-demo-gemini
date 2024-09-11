@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/patterns-ai-core/langchainrb.git
-  revision: 860deef98cd659b96bedd8d0e0c8a569611dfc22
+  revision: 6e83c6c0a7b3af3ee6b4658249e3178feac2d673
   branch: main
   specs:
-    langchainrb (0.15.4)
+    langchainrb (0.15.5)
       baran (~> 0.1.9)
       json-schema (~> 4)
       matrix
@@ -147,6 +147,7 @@ DEPENDENCIES
   dotenv
   faraday
   gemini-ai
+  googleauth
   langchainrb!
   mail
   ollama-ai
