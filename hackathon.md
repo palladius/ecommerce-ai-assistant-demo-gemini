@@ -2,25 +2,29 @@
 
 Welcome to the **Hackathon**!
 
+Links:
+
+* https://2024.euruko.org/speakers/riccardo_carlesso (abstract of today)
+* https://bit.ly/euruko-hackathon (all hackathon details)
+
 <div align="right">
     <a href="https://2024.euruko.org/" target="_blank"><img src="images/hero_image.png" alt="Euruko Logo" width="200"></a>
 </div>
 
 ### 11 Sep Note
 
-**WARNING**: this was edit the day of the event due to a last-minute issue with wifi.
+![Euruko WiFi available](euruko-wifi.png)
+
+**WARNING**: this was edit the day of the event due to a last-minute issue with wifi in Sarejevo hotel. this is detailed in https://bit.ly/euruko-hackathon
+
 
 While all scripts here have been extensively tested at home, thjey seem to fail with current WiFi setup at Euruko.
 
-Which is why I started coding a Vertex AI alternative which seems to work: 
+Which is why I started coding a Vertex AI alternative which seems to work:
 
-`make test-e2e-vertexai.rb`
+`ruby test-e2e-vertexai.rb`
 
-When you run it, it will likely fail, and should work if you comment out that error line:
-
-* https://github.com/patterns-ai-core/langchainrb/pull/772
-
-I know it's monkeypatching, but thats as goos as it gets 2h before the event :) 
+I know it's monkeypatching, but thats as goos as it gets 2h before the event :)
 
 ## Hackathon steps
 

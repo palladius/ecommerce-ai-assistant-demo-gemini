@@ -25,6 +25,7 @@ require_relative "./tools/email_service"
 require_relative "./lib/google_message"
 require_relative "./lib/assistant"
 require_relative "./lib/database"
+require_relative "./lib/vertex_monkey_patch"
 
 require "irb"
 
