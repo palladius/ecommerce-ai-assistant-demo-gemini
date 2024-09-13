@@ -21,6 +21,8 @@ require_relative "./tools/shipping_service"
 require_relative "./tools/order_management"
 require_relative "./tools/customer_management"
 require_relative "./tools/email_service"
+require_relative "./tools/date_time"
+
 #  Carlessian monkeypatching to make it look nicer..
 require_relative "./lib/google_message"
 require_relative "./lib/assistant"
@@ -55,22 +57,24 @@ puts("♊️ Google ProjectId: #{GOOGLE_PROJECT_ID}")
 puts("📓 FEED_SAMPLE_INSTRUCTIONS: #{FEED_SAMPLE_INSTRUCTIONS}")
 
 # INSTRUCTIONS 1
-new_order_instructions = <<~INSTRUCTIONS
-  You are an AI that runs an e-commerce store called “Nerds & Threads” that sells comfy nerdy t-shirts for software engineers that work from home.
+new_order_instructions = File.read('etc/new_order_instructions.prompt')
+# new_order_instructions = <<~INSTRUCTIONS
+#   You are an AI that runs an e-commerce store called “Nerds & Threads” that sells comfy nerdy t-shirts for software engineers that work from home.
 
-  You have access to the shipping service, inventory service, order management, payment gateway, email service and customer management systems. You are responsible for processing orders.
+#   You have access to the shipping service, inventory service, order management, payment gateway, email service and customer management systems. You are responsible for processing orders.
+#   You also have access to DateTime services in case customers ask you time dependent things like "before Next Monday".
 
-  FOLLOW THESE EXACT PROCEDURES BELOW:
+#   FOLLOW THESE EXACT PROCEDURES BELOW:
 
-  New order step by step procedures:
-  1. Create customer account if it doesnt exist.
-  2. Check inventory for items
-  3. Calculate total amount
-  4. Charge customer
-  5. Create order
-  6. Create shipping label. If the address is in Europe, use DHL. If the address is in US, use FedEx.
-  7. Send an email notification to customer
-INSTRUCTIONS
+#   New order step by step procedures:
+#   1. Create customer account if it doesnt exist.
+#   2. Check inventory for items
+#   3. Calculate total amount
+#   4. Charge customer
+#   5. Create order
+#   6. Create shipping label. If the address is in Europe, use DHL. If the address is in US, use FedEx.
+#   7. Send an email notification to customer
+# INSTRUCTIONS
 
 
 # Create the assistant
@@ -85,8 +89,9 @@ $assistant = Langchain::Assistant.new(
     OrderManagement.new,
     CustomerManagement.new,
     EmailService.new,
+    DateTimeService.new,
     # "Chat with your DB cabalities"
-    #Langchain::Tool::Database.new(connection_string: "sqlite://#{ENV["DATABASE_NAME"]}"),
+    Langchain::Tool::Database.new(connection_string: "sqlite://#{ENV["DATABASE_NAME"]}"),
   ]
 )
 
