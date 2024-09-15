@@ -29,3 +29,7 @@ test-without-feeding-instructions: db
 	FEED_SAMPLE_INSTRUCTIONS=false ruby test-e2e.rb
 clean:
 	rm nerds-and-threads.sqlite3
+
+#.PHONEY: webapp
+app:
+	cd webapp && make up

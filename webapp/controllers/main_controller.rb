@@ -31,6 +31,7 @@ class MainController < Sinatra::Base
       )
 
       assistant.add_message_and_run content: message, auto_tool_execution: true
+      puts("Ricc Debug: #{assistant.pretty_history}")
 
       out.close
     end
@@ -109,6 +110,7 @@ class MainController < Sinatra::Base
     )
   end
   def gemini_llm
+    puts("🐞DEBUG🐞 instantiated a new Gemini LLM")
     Langchain::LLM::GoogleGemini.new(
       api_key: ENV["GEMINI_API_KEY"],
       default_options: { chat_completion_model_name: ENV['CHAT_COMPLETION_MODEL_NAME'] }

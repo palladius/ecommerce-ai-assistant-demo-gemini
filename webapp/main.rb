@@ -12,5 +12,7 @@ Sequel::Model.db = Sequel.sqlite(ENV["DATABASE_NAME"])
 Dir["../models/*.rb"].each { |file| require_relative file }
 # Require all the tools
 Dir["../tools/*.rb"].each { |file| require_relative file }
+# Require all Riccardo goodies
+Dir["../lib/*.rb"].each { |file| require_relative file }
 
 require_relative "./controllers/main_controller"
