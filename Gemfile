@@ -22,4 +22,9 @@ gem 'colorize'
 # Possible LLMs: add yours if missing
 gem 'ollama-ai'
 gem 'gemini-ai' # , '~> 4.2.0'
-#gem "ruby-openai"
+gem "ruby-openai"
+
+# For webapp
+gem 'sinatra', '~> 3.1.0'
+gem 'thin', '~> 1.8.2'
+gem 'rack', '~> 2.2'
