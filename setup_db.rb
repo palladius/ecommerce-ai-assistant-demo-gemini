@@ -8,6 +8,7 @@ DB.create_table :products do
   String :sku, primary_key: true
   Float :price
   Integer :quantity
+  String :name
 end
 
 DB.create_table :orders do
@@ -30,12 +31,12 @@ DB.create_table :customers do
 end
 
 products = DB[:products]
-products.insert sku: 'A3045809', price: 20.99, quantity: 100
-products.insert sku: 'B9384509', price: 21.99, quantity: 5
-products.insert sku: 'Z0394853', price: 22.99, quantity: 20
-products.insert sku: 'X3048509', price: 23.99, quantity: 3
-products.insert sku: 'Y3048509', price: 24.99, quantity: 10
-products.insert sku: 'L3048509', price: 29.99, quantity: 0
+products.insert sku: 'A3045809', price: 20.99, quantity: 100,name: 'T-shirt'
+products.insert sku: 'B9384509', price: 21.99, quantity: 5,  name: 'Nerdy T-shirt'
+products.insert sku: 'Z0394853', price: 22.99, quantity: 20, name: 'Coffee Mug'
+products.insert sku: 'X3048509', price: 23.99, quantity: 3,  name: 'Bosnian GOAT'
+products.insert sku: 'Y3048509', price: 24.99, quantity: 10, name: 'T-shirt'
+products.insert sku: 'L3048509', price: 29.99, quantity: 0,  name: 'T-shirt'
 
 
 customers = DB[:customers]

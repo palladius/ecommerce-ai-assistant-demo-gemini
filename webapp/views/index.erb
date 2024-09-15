@@ -44,27 +44,7 @@
                 const messageElement = document.createElement('div');
                 const formattedContent = formatContent(message.content);
                 messageElement.textContent = `${message.emoji}: ${formattedContent}`;
-                // let bgColor;
-                // switch (message.role) {
-                //     case 'user':
-                //         bgColor = 'bg-blue-100';
-                //         break;
-                //     case 'assistant':
-                //         bgColor = 'bg-red-100';
-                //         break;
-                //     case 'model':
-                //         //bgColor = 'bg-red-100';
-                //         // Gemini
-                //         bgColor = "bg-gradient-to-r from-blue-500 to-purple-600";
-                //         break;
-                //     case 'tool', 'function':
-                //         // bgColor = 'bg-gray-100';
-                //         bgColor = 'p-8 rounded-lg text-white font-mono';
-                //         break;
-                //     default:
-                //         bgColor = 'bg-white';
-                // }
-                // messageElement.className = `mb-2 p-2 rounded ${bgColor} whitespace-pre-wrap`;
+                // let bgColor; done in ServerSide now
                 let bgColor = message.style;
                 messageElement.className = `mb-2 p-2 rounded ${bgColor} whitespace-pre-wrap`;
                 //messageElement.className = message.style
