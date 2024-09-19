@@ -167,6 +167,8 @@ FEED_SAMPLE_INSTRUCTIONS=false ruby test-e2e.rb
 
 ## Exercise 2: Try with Gemma2 (easy)
 
+**WARNING** At the moment, Gemma doesn't support Function Calling.
+
 Are you a fan of Open Models? Are you familiar with [Ollama](https://ollama.com/)?
 
 Want to run the same exercise with [**Gemma**](https://ollama.com/library/gemma2)?
@@ -326,6 +328,7 @@ $assistant.msg 'Please JOIN orders with order_items and customers to provide a l
 | Jane Doe        | 2 | X3048509 | 3 | 2024-09-10 12:14:54.795901 +0200 |
 | Andrei Bondarev | 3 | Y3048509 | 5 | 2024-09-10 12:24:44.694869 +0200 |
 ```
+
 I wouldn't have come up with ```"SELECT c.name, o.id, oi.product_sku, oi.quantity, o.created_at FROM orders o JOIN order_items oi ON o.id = oi.order_id JOIN customers c ON o.customer_id = c.id"```
 in less than a second :)
 
