@@ -11,14 +11,11 @@ Links:
     <a href="https://2024.euruko.org/" target="_blank"><img src="images/hero_image.png" alt="Euruko Logo" width="200"></a>
 </div>
 
-### 11 Sep Note
-
-![Euruko WiFi available](euruko-wifi.png)
+### 11 Sep - Sarajevo Note
 
 **WARNING**: this was edit the day of the event due to a last-minute issue with wifi in Sarejevo hotel. this is detailed in https://bit.ly/euruko-hackathon
 
-
-While all scripts here have been extensively tested at home, thjey seem to fail with current WiFi setup at Euruko.
+While all scripts here have been extensively tested at home, they seem to fail at Euruko.
 
 Which is why I started coding a Vertex AI alternative which seems to work:
 
