@@ -25,6 +25,8 @@ test-e2e: run-test-e2e
 test-vertex: db
 	ruby test-e2e-vertexai.rb
 
+test-e2e-vertex: test-vertex
+
 test-without-feeding-instructions: db
 	FEED_SAMPLE_INSTRUCTIONS=false ruby test-e2e.rb
 clean:
